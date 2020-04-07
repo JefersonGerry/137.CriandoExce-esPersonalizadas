@@ -35,30 +35,20 @@ public class Program {
 			checkIn = sdf.parse(sc.next());
 			System.out.print("Check-out date (dd/MM/yyyy): ");
 			checkOut = sdf.parse(sc.next());
-			//para criar uma data com o horario de agora
-			Date now = new Date();
-			// problema 1 muito ruim
-			// se a data de check-in for antes de agora ou a data de check-out for antes de agora
-			// esse if define que a data não pode ser nem anterior e nem depois da data inicial definida
-			if(checkIn.before(now)|| checkOut.after(now)) {
-				System.out.println("Error in reservation: Reservation dates for update must be future dates.");
-			}
-			// problema 2 muito ruim
-			else if(!checkOut.after(checkIn)) {// definindo que a data de check-out tem que ser posterior a data de check-in
-				System.out.println("Error in reservation: Reservation dates for update must be future dates.");
-			}
-			// problema 3 muito ruim
-			else {
 				// com o metodo ja criado dentro da classe executora
 				// se chama ela para atualizar
-				reservation.updateDates(checkIn, checkOut);
-				System.out.println("Reservation: " + reservation);
+				String error = reservation.updateDates(checkIn, checkOut);
+				if (error != null) {
+				System.out.println("Reservation: " + error);
+				
+				}else {
+					System.out.println("Reservation: " + reservation);
+				}
 			}			
 			
+		 sc.close();
 		}
-		
-		
-        sc.close();
+		 
 	}
 
-}
+

@@ -47,9 +47,25 @@ public class Reservation {
 	
 	// quando se deseja atualizar alguma variavel dentro do programa
 	// se passa ela como paramentro dentro da função
-	public void updateDates(Date checkIn, Date checkOut) {
+	public String updateDates(Date checkIn, Date checkOut) {
+		
+		//para criar uma data com o horario de agora
+		Date now = new Date();
+		// problema 1 muito ruim
+		// se a data de check-in for antes de agora ou a data de check-out for antes de agora
+		// esse if define que a data não pode ser nem anterior e nem depois da data inicial definida
+		if(checkIn.before(now)|| checkOut.after(now)) {
+			 return "Error in reservation: Reservation dates for update must be future dates.";
+		}
+		// problema 2 muito ruim
+		if(!checkOut.after(checkIn)) {// definindo que a data de check-out tem que ser posterior a data de check-in
+			return "Check-out date must be after check-in dates.";
+		}	
+		
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
+		
+		return null; // para indicar ao compilador que não obtivemos nenhum erro
 	}	
 	@Override
 	public String toString() {
